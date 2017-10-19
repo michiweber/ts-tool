@@ -33,6 +33,13 @@ module.exports = function(grunt) {
       }
     },
     clean: ['dist', 'test'],
+    'npm-command': {
+      publish: {
+        options: {
+          cmd: 'publish'
+        }
+      }
+    },
     karma: {
       unit: {
         configFile: 'karma.conf.js'
@@ -43,8 +50,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks("grunt-ts");
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-npm-command');
 
   grunt.registerTask("default", ["clean", "ts:app"]);
   grunt.registerTask("test", ["karma"]);
+  grunt.registerTask("publish", ["karma", "clean", "ts:app", "npm-command"]);
 
 };
